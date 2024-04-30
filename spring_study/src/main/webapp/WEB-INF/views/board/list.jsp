@@ -53,7 +53,10 @@
 			<th>title</th>
 			<th>writer</th>
 			<th>reg_date</th>
-			<th>read_count</th>			
+			<th>read_count</th>
+			<!--내가 한곳 -->
+			<th>cmt_qty</th>	
+			<th>has_file</th>		
 		</tr>
 	</thead>
 	<tbody>
@@ -73,6 +76,13 @@
 		</td>
 		<td>
 			${bvo.read_count }
+		</td>
+		<!-- 내가한곳 -->
+		<td>
+			${bvo.cmt_qty }
+		</td>
+		<td>
+			${bvo.has_file }
 		</td>
 	</tr>
 	</c:forEach>

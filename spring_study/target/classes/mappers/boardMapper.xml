@@ -34,6 +34,18 @@ update board set  isDel='Y' where bno=#{bno}
 update board set read_count=read_count+1 where bno=#{bno}
 </update>
 
+<select id="selectBno" resultType="int">
+ select max(bno) from board;
+</select>
+
+<update id="cmtFileCountUpdate">
+update board b set cmt_qty=(select count(bno) from comment where bno=b.bno); 
+</update>
+
+<update id="fileCountUdate">
+update board b set has_file=(select count(bno) from file where bno=b.bno); 
+</update>
+
  <!-- select*from board where isDel='N' and title like %keyword% or content like %keyword% -->
  <!--  select*from board where isDel='N'and(or...or....or......) -->
  <!-- 동적쿼리 -->

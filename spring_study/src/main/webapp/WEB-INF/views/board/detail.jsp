@@ -4,27 +4,60 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <div  class="container-md">
 <h1>Board detail page</h1>
- 
+<c:set value="${bdto.bvo}" var="bvo"></c:set>
+
  	<div class="mb-3">
   		<label for="n" class="form-label">bno</label>
-  		<input type="text" class="form-control" name="bno" id="n" value="${bvo.bno }" readonly="readonly" placeholder="bno...">
+  		<input type="text" class="form-control" name="bno" id="n" value="${bvo.bno }" readonly="readonly" placeholder="bno..">
 	</div>
  	<div class="mb-3">
   		<label for="t" class="form-label">title</label>
-  		<input type="text" class="form-control" name="title" id="t" value="${bvo.title }"  readonly="readonly" placeholder="title...">
+  		<input type="text" class="form-control" name="title" id="t" value="${bvo.title }"  readonly="readonly" placeholder="title..">
 	</div>
 	
 		<div class="mb-3">
   			<label for="w" class="form-label">writer</label>
-  			<input type="text" class="form-control"  name="writer" id="w" value="${bvo.writer }" readonly="readonly" placeholder="writer...">
+  			<input type="text" class="form-control"  name="writer" id="w" value="${bvo.writer }" readonly="readonly" placeholder="writer..">
 		</div>
 		<div class="mb-3">
   		<label for="t" class="form-label">reg_date</label>
-  		<input type="text" class="form-control" name="reg_date" id="r" value="${bvo.reg_date }" readonly="readonly" placeholder="reg_date...">
+  		<input type="text" class="form-control" name="reg_date" id="r" value="${bvo.reg_date }" readonly="readonly" placeholder="reg_date..">
 	</div>
 	<div class="mb-3">
  	 <label for="c" class="form-label">content</label>
   	<textarea class="form-control"  id="c"  name="content"   aria-label="With textarea" readonly="readonly">${bvo.content }</textarea>
+	</div>
+	<!-- file uplad 표시라인 -->
+	<c:set value="${bdto.flist }" var="flist"></c:set>
+	<div class="mb-3">
+	<ul class="list-group list-group-flush">
+	<!-- 파일 개수만큼 li를 반복하여 파일 표시 타입이 1인경우만 표시  -->
+	<!-- =>div>파일이름 작성일 span size -->
+	<c:forEach items="${flist }" var="fvo">
+
+  <li class="list-group-item">
+  		<c:choose>
+  			<c:when test="${fvo.file_type>0 }">
+  				<div>
+  					<img alt="" src="/upload/${fvo.save_dir}/${fvo.uuid }_${fvo.file_name}">
+  				</div>
+  			</c:when>
+  			<c:otherwise>
+  				<div>
+  					<!-- 파일타입이 0인경우 아이콘 모양하나 가져와서 넣기 -->
+  				</div>
+  			</c:otherwise>
+  		</c:choose>
+  		<div>
+			<!-- 파일이름 작성일 -->
+			<div>${fvo.file_name }</div>
+			${fvo.reg_date }
+			<span class="badge rounded-pill text-bg-warning">${fvo.file_size }Byte</span>  		
+  		</div>
+  </li>
+	</c:forEach>
+
+  </ul>
 	</div>
 	
 	<br>
