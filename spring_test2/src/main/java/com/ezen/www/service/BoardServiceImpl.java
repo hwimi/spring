@@ -2,14 +2,13 @@ package com.ezen.www.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ezen.www.domain.BoardDTO;
 import com.ezen.www.domain.BoardVO;
+
 import com.ezen.www.domain.FileVO;
 import com.ezen.www.domain.PagingVO;
 import com.ezen.www.repository.BoardDAO;
@@ -23,9 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 	
-
+	
 	private final BoardDAO bdao;
 	private final FileDAO fdao;
+	
 	
 	@Transactional
 	@Override
@@ -42,6 +42,8 @@ public class BoardServiceImpl implements BoardService {
 				fvo.setBno(bno);
 				isOk=fdao.insertFile(fvo);
 			}
+			
+		
 		
 		}
 		return isOk;
@@ -54,16 +56,17 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO getdetail(int bno) {
-		// TODO Auto-generated method stub
-		return bdao.getdetail(bno);
+	public BoardDTO getdetail(int bno) {
+		BoardVO bvo=bdao.getdetail(bno);
+		List<FileVO> flist=fdao.getList(bno);
+		BoardDTO bdto=new BoardDTO(bvo,flist);
+		return bdto;
 	}
 
-	@Override
-	public int modify(BoardVO bvo) {
-		// TODO Auto-generated method stub
-		return bdao.update(bvo);
-	}
+	/*
+	 * @Override public int modify(BoardVO bvo) { // TODO Auto-generated method stub
+	 * return bdao.update(bvo); }
+	 */
 
 	@Override
 	public int delete(int bno) {
@@ -75,6 +78,27 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotal(PagingVO pgvo) {
 		// TODO Auto-generated method stub
 		return bdao.getTotal(pgvo);
+	}
+
+	@Override
+	public int uuid(String uuid) {
+		// TODO Auto-generated method stub
+		return fdao.uuid(uuid);
+	}
+
+	@Override
+	public int update(BoardDTO boardDTO) {
+		int isOk=bdao.update(boardDTO.getBvo());
+		if(boardDTO.getFlist()==null) {
+			return isOk;
+		}
+		if(isOk>0&&boardDTO.getFlist().size()>0) {
+			for(FileVO fvo:boardDTO.getFlist()) {
+				fvo.setBno(boardDTO.getBvo().getBno());
+				isOk=fdao.insertFile(fvo);
+			}
+		}
+		return isOk;
 	}
 
 

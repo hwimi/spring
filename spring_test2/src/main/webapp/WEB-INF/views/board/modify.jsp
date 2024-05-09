@@ -4,8 +4,8 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <div  class="container-md">
 <h1>Board modify page</h1>
-<%-- <c:set value="${bdto.bvo}" var="bvo"></c:set> --%>
- <form action="/board/modify" method="post" >
+ <c:set value="${bdto.bvo}" var="bvo"></c:set>
+ <form action="/board/modify" method="post" enctype="multipart/form-data">
  	<div class="mb-3">
   		<label for="n" class="form-label">bno</label>
   		<input type="text" class="form-control" name="bno" id="n" value="${bvo.bno }" readonly="readonly" placeholder="bno...">
@@ -32,7 +32,7 @@
 	
 	
 	
-	<%-- <!--파일 표시라인 -->
+	 <!--파일 표시라인 -->
 	<c:set value="${bdto.flist }" var="flist"></c:set>
 	<div class="mb-3">
 	<ul class="list-group list-group-flush" class="imageRe">
@@ -42,9 +42,9 @@
 
   <li class="list-group-item">
   		<c:choose>
-  			<c:when test="${fvo.file_type>0 }">
+  			<c:when test="${fvo.fileType>0 }">
   				<div>
-  					<img alt="" src="/upload/${fvo.save_dir}/${fvo.uuid }_${fvo.file_name}">
+  					<img alt="" src="/up/${fvo.saveDir}/${fvo.uuid }_${fvo.fileName}">
   				</div>
   			</c:when>
   			<c:otherwise>
@@ -55,9 +55,9 @@
   		</c:choose>
   		<div>
 			<!-- 파일이름 작성일 -->
-			<div>${fvo.file_name }</div>
-			${fvo.reg_date }
-			<span class="badge rounded-pill text-bg-warning">${fvo.file_size }Byte</span> 
+			<div>${fvo.fileName }</div>
+			${fvo.regDate }
+			<span class="badge rounded-pill text-bg-warning">${fvo.fileSize }Byte</span> 
 			<button type="button" class="btn btn-outline-danger btn-sm file-X" data-uuid="${fvo.uuid}">X</button> 		
   		</div>
   </li>
@@ -75,12 +75,12 @@
 		
 		<!-- 파일목록 표시라인 -->
 		<div class="mb-3" id="fileZone" >
-		</div> --%>
+		</div>
 <button type="submit" class="btn btn-warning" id="regBtn">수정</button>
 <a href="/board/list"><button type="button" class="btn btn-primary">list</button></a>
  </form>
-<!-- <script type="text/javascript" src="/resources/js/boardModify.js"></script>
-<script type="text/javascript" src="/resources/js/boardRegister.js"></script> -->
+<script type="text/javascript" src="/re/js/boardModify.js"></script>
+<script type="text/javascript" src="/re/js/boardRegister.js"></script>
     
  <jsp:include page="../layout/footer.jsp"></jsp:include>
 </div>
