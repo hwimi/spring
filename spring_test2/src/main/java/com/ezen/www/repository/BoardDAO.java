@@ -24,6 +24,13 @@ public interface BoardDAO {
 
 	int selectOneBno();
 
+
+	void updatereadcount(int bno);
+
+	void cmtFileCountUpdate();
+
+	void fileCountUdate();
+
 	
 	
 }

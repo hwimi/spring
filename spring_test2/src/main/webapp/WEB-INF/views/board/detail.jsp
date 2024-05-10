@@ -70,12 +70,18 @@
 	
 	<br>
 	<hr>
-
-	<sec:authentication property="principal.uvo.nickName" var="authNick" />
+	 <sec:authorize access="isAuthenticated()">
+	 <sec:authentication property="principal.uvo.nickName" var="authNick"  />
+	 </sec:authorize>
 	<!-- comment line -->
 	<!-- 댓글등록라인 -->
 	<div class="input-group mb-3">
-  		<span class="input-group-text" id="cmtWriter">${authNick }</span>
+  		<span class="input-group-text" id="cmtWriter">
+  		<c:if test="${authNick eq null }">
+  		<span class="input-group-text" id="cmtWriter">손님</span>
+  		</c:if>
+  		${authNick }
+  		</span>
   		<input type="text" id="cmtText" class="form-control" placeholder="Add Comment..." aria-label="Username" aria-describedby="basic-addon1">
   		<button type="button" id="cmtAddBtn" class="btn btn-secondary">post</button>
 	</div>

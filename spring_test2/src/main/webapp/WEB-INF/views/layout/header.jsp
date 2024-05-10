@@ -73,7 +73,7 @@
     </div>
   </div>
 </nav>
-
+<sec:authorize access="isAuthenticated()">
 <script type="text/javascript">
 document.getElementById('logoutLink').addEventListener('click',(e)=>{
 	e.preventDefault();
@@ -81,3 +81,4 @@ document.getElementById('logoutLink').addEventListener('click',(e)=>{
 })
 
 </script>
+</sec:authorize>

@@ -58,6 +58,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardDTO getdetail(int bno) {
 		BoardVO bvo=bdao.getdetail(bno);
+		bdao.updatereadcount(bno);
 		List<FileVO> flist=fdao.getList(bno);
 		BoardDTO bdto=new BoardDTO(bvo,flist);
 		return bdto;
@@ -99,6 +100,13 @@ public class BoardServiceImpl implements BoardService {
 			}
 		}
 		return isOk;
+	}
+
+	@Override
+	public void cmtFileUpdate() {
+		bdao.cmtFileCountUpdate();
+		bdao.fileCountUdate();
+		
 	}
 
 

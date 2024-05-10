@@ -58,6 +58,7 @@ public class BoardController {
 		log.info(">>>paingVo>>{}",pgvo);
 		//페이징 처리 추가
 		List<BoardVO> list=bsv.getlist(pgvo);
+		bsv.cmtFileUpdate();
 		//totalcount 가져오기
 		int totalCount=bsv.getTotal(pgvo);
 		PagingHandler ph=new PagingHandler(pgvo, totalCount);
